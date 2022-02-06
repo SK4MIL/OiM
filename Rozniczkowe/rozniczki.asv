@@ -1,0 +1,35 @@
+%% Rozwiazywanie rownan rozniczkowych metoda Eulera!
+% dx/dt = ax
+%% Zadanie 1
+a = 2;
+h = 0.01;
+x = 0:h:5;
+
+y = zeros(size(x));
+d_pochodna = zeros(size(y));
+
+y(1)=0;
+d_pochodna(1)=0;
+
+m_an = zeros(size(x));
+m_an(:)=sin(1/10*x(:));
+d_m_an(:)=cos(1/10*x(:));
+for i = 2:length(y)-1
+    %% f = a(f(x))
+    f=a*y(i-1);
+    y(i)=y(i-1) + h*f;
+end
+%exp(3)
+m_an(:) = exp(a*x(:));
+
+figure (1)
+plot (x,y,x,m_an,'.red')
+title('Metoda analityczna i numeryczna')
+legend('Metoda analityczna','Metoda numryczna','Location',['south'])
+ylim([0 max(y)])
+s=y(:)-m_an(:);
+%s= m_an(:)-y(:)
+figure (2)
+plot (x,s)
+title('Błąd przybliżenia');
+xlim([0 6]);
